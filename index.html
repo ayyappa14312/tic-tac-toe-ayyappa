@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Game Mode Selection Popup -->
+    <div class="modal" id="gameModeModal">
+        <div class="modal-content">
+            <h2>Select Game Mode</h2>
+            <button id="twoPlayerBtn" class="btn">2 Player</button>
+            <button id="computerPlayerBtn" class="btn">Play with Computer</button>
+        </div>
+    </div>
+
+    <!-- Winning Popup -->
+    <div class="modal" id="winnerModal">
+        <div class="modal-content">
+            <h2 id="winnerMessage">Player X wins!</h2>
+            <button id="newGameBtn" class="btn">New Game</button>
+        </div>
+    </div>
+  
+    <!-- Bot Difficulty Level Modal -->
+    <div id="levelModal" class="modal">
+        <div class="modal-content">
+            <h2>Select Difficulty Level</h2>
+            <button id="easyBtn" class="btn">Easy</button>
+            <button id="mediumBtn" class="btn">Medium</button>
+            <button id="hardBtn" class="btn">Hard</button>
+        </div>
+    </div>
+
+    <!-- Game Board and Reset Button -->
+    <div class="container">
+        <h1>Tic Tac Toe</h1>
+        <div id="board" class="board">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
+        <button id="reset" class="btn">Reset Game</button>
+    </div>
+
+    <div id="confetti"></div>
+
+    <!-- Adding audio elements -->
+    <audio id="clickSound" src="sounds/click.mp3"></audio>
+    <audio id="winSound" src="sounds/win.mp3"></audio>
+
+<link rel="manifest" href="/manifest.json">
+
+    <script src="script.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js').then(function() {
+      console.log('Service Worker Registered');
+    });
+  }
+</script>
+</body>
+</html>
+

@@ -1,0 +1,325 @@
+/* General Styles */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1d1f27;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+}
+
+.container {
+    text-align: center;
+    display: none; /* Hidden until game mode is selected */
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #e3e4e8;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 120px);
+    gap: 10px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cell {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    background-color: #2c2f36;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+}
+
+.cell:hover {
+    transform: scale(1.05);
+    background-color: #454a54;
+}
+
+.btn {
+    padding: 12px 24px;
+    font-size: 18px;
+    background-color: #ff4757;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #ff6b81;
+}
+
+.cell.x {
+    color: #00aaff;
+}
+
+.cell.o {
+    color: #ff6347;
+}
+
+#confetti {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    overflow: hidden;
+}
+
+/* Modal Styling */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal-content {
+    background: #2c2f36;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+/* Hide modals initially */
+#gameModeModal, #winnerModal {
+    display: none;
+}
+
+/* Add winning animation */
+.cell.winner {
+    animation: winAnimation 0.5s ease-in-out alternate infinite;
+}
+
+/* Animation for the winning cells */
+@keyframes winAnimation {
+    0% {
+        transform: scale(1);
+        background-color: #3ae374;
+    }
+    100% {
+        transform: scale(1.1);
+        background-color: #42f59b;
+    }
+}
+
+/* Enhanced popup appearance */
+.modal-content {
+    background: linear-gradient(135deg, #2c2f36, #3a3d47);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.modal-content h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: #e0e0e0;
+}
+
+.btn {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #ff4757;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    background-color: #ff6b81;
+    transform: scale(1.05);
+}
+
+/* Bot difficulty level modal */
+#levelModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+#levelModal .modal-content {
+    background: linear-gradient(135deg, #2c2f36, #3a3d47);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+#levelModal .btn {
+    margin: 10px;
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #ff4757;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#levelModal .btn:hover {
+    background-color: #ff6b81;
+    transform: scale(1.05);
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .board {
+        grid-template-columns: repeat(3, 80px);
+        gap: 5px;
+    }
+
+    .cell {
+        width: 80px;
+        height: 80px;
+        font-size: 36px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    #winnerModal .modal-content h2 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .board {
+        grid-template-columns: repeat(3, 60px);
+        gap: 3px;
+    }
+
+    .cell {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .modal-content {
+        padding: 15px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    #winnerModal .modal-content h2 {
+        font-size: 18px;
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .board {
+        grid-template-columns: repeat(3, 100px); /* Increase the cell size */
+        gap: 10px; /* Adjust the gap between cells */
+    }
+
+    .cell {
+        width: 100px; /* Adjust cell width */
+        height: 100px; /* Adjust cell height */
+        font-size: 40px; /* Increase font size */
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    #winnerModal .modal-content h2 {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .board {
+        grid-template-columns: repeat(3, 90px); /* Increase the cell size */
+        gap: 8px; /* Adjust the gap between cells */
+    }
+
+    .cell {
+        width: 90px; /* Adjust cell width */
+        height: 90px; /* Adjust cell height */
+        font-size: 36px; /* Increase font size */
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .modal-content {
+        padding: 15px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    #winnerModal .modal-content h2 {
+        font-size: 18px;
+    }
+}
+
