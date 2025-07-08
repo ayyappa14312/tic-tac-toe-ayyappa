@@ -3,70 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
+    <title>Chess Game</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Game Mode Selection Popup -->
+    <!-- Game Mode Selection Modal -->
     <div class="modal" id="gameModeModal">
         <div class="modal-content">
-            <h2>Select Game Mode</h2>
-            <button id="twoPlayerBtn" class="btn">2 Player</button>
-            <button id="computerPlayerBtn" class="btn">Play with Computer</button>
+            <h2><i class="fas fa-chess"></i> Chess Game</h2>
+            <p>Select your game mode</p>
+            <button id="twoPlayerBtn" class="btn primary-btn">
+                <i class="fas fa-users"></i> Two Players
+            </button>
+            <button id="computerPlayerBtn" class="btn secondary-btn">
+                <i class="fas fa-robot"></i> Play vs Computer
+            </button>
         </div>
     </div>
 
-    <!-- Winning Popup -->
-    <div class="modal" id="winnerModal">
+    <!-- Difficulty Selection Modal -->
+    <div class="modal" id="difficultyModal">
         <div class="modal-content">
-            <h2 id="winnerMessage">Player X wins!</h2>
-            <button id="newGameBtn" class="btn">New Game</button>
+            <h2><i class="fas fa-brain"></i> Select Difficulty</h2>
+            <button id="easyBtn" class="btn difficulty-btn easy">
+                <i class="fas fa-star"></i> Easy
+            </button>
+            <button id="mediumBtn" class="btn difficulty-btn medium">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i> Medium
+            </button>
+            <button id="hardBtn" class="btn difficulty-btn hard">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> Hard
+            </button>
         </div>
     </div>
-  
-    <!-- Bot Difficulty Level Modal -->
-    <div id="levelModal" class="modal">
+
+    <!-- Game Over Modal -->
+    <div class="modal" id="gameOverModal">
         <div class="modal-content">
-            <h2>Select Difficulty Level</h2>
-            <button id="easyBtn" class="btn">Easy</button>
-            <button id="mediumBtn" class="btn">Medium</button>
-            <button id="hardBtn" class="btn">Hard</button>
+            <h2 id="gameOverMessage"><i class="fas fa-trophy"></i> Checkmate!</h2>
+            <p id="gameOverDetails">White wins!</p>
+            <button id="newGameBtn" class="btn primary-btn">
+                <i class="fas fa-redo"></i> New Game
+            </button>
+            <button id="rematchBtn" class="btn secondary-btn">
+                <i class="fas fa-exchange-alt"></i> Rematch
+            </button>
         </div>
     </div>
 
-    <!-- Game Board and Reset Button -->
-    <div class="container">
-        <h1>Tic Tac Toe</h1>
-        <div id="board" class="board">
-            <div class="cell" data-index="0"></div>
-            <div class="cell" data-index="1"></div>
-            <div class="cell" data-index="2"></div>
-            <div class="cell" data-index="3"></div>
-            <div class="cell" data-index="4"></div>
-            <div class="cell" data-index="5"></div>
-            <div class="cell" data-index="6"></div>
-            <div class="cell" data-index="7"></div>
-            <div class="cell" data-index="8"></div>
+    <!-- Main Game Container -->
+    <div class="game-container" id="gameContainer">
+        <!-- Game Header -->
+        <div class="game-header">
+            <div class="player-info white-player">
+                <div class="player-avatar">
+                    <i class="fas fa-chess-king"></i>
+                </div>
+                <div class="player-details">
+                    <h3>White</h3>
+                    <div class="timer" id="whiteTimer">10:00</div>
+                </div>
+            </div>
+            
+            <div class="game-controls">
+                <button id="undoBtn" class="control-btn" title="Undo Move">
+                    <i class="fas fa-undo"></i>
+                </button>
+                <button id="flipBtn" class="control-btn" title="Flip Board">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <button id="resetBtn" class="control-btn" title="New Game">
+                    <i class="fas fa-redo"></i>
+                </button>
+            </div>
+            
+            <div class="player-info black-player">
+                <div class="player-avatar">
+                    <i class="fas fa-chess-king"></i>
+                </div>
+                <div class="player-details">
+                    <h3>Black</h3>
+                    <div class="timer" id="blackTimer">10:00</div>
+                </div>
+            </div>
         </div>
-        <button id="reset" class="btn">Reset Game</button>
+
+        <!-- Chess Board -->
+        <div class="chess-board" id="chessBoard">
+            <!-- Board will be generated by JavaScript -->
+        </div>
+
+        <!-- Game Sidebar -->
+        <div class="game-sidebar">
+            <div class="move-history">
+                <h3><i class="fas fa-history"></i> Move History</h3>
+                <div class="moves-container" id="movesContainer">
+                    <!-- Moves will be added here -->
+                </div>
+            </div>
+            
+            <div class="captured-pieces">
+                <h3><i class="fas fa-chess-pawn"></i> Captured Pieces</h3>
+                <div class="captured-white" id="capturedWhite">
+                    <!-- Captured white pieces -->
+                </div>
+                <div class="captured-black" id="capturedBlack">
+                    <!-- Captured black pieces -->
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div id="confetti"></div>
-
-    <!-- Adding audio elements -->
-    <audio id="clickSound" src="sounds/click.mp3"></audio>
-    <audio id="winSound" src="sounds/win.mp3"></audio>
-
-<link rel="manifest" href="/manifest.json">
+    <!-- Audio Elements -->
+    <audio id="moveSound" src="sounds/move.mp3"></audio>
+    <audio id="captureSound" src="sounds/capture.mp3"></audio>
+    <audio id="checkSound" src="sounds/check.mp3"></audio>
+    <audio id="checkmateSound" src="sounds/checkmate.mp3"></audio>
 
     <script src="script.js"></script>
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js').then(function() {
-      console.log('Service Worker Registered');
-    });
-  }
-</script>
 </body>
 </html>
 
